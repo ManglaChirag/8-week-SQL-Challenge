@@ -139,3 +139,24 @@ LEFT JOIN menu me ON mo.PRODUCT_ID = ME.PRODUCT_ID
 group by customer_id
 
 -- 10. In the first week after a customer joins the program (including their join date) they earn 2x points on all items, not just sushi - how many points do customer A and B have at the end of January?
+
+WITH ELIGIBLE_ORDERS AS
+	(SELECT S.CUSTOMER_ID,
+			S.PRODUCT_ID,
+			S.ORDER_DATE,
+			ME.JOIN_DATE
+		FROM MEMBERS ME
+		LEFT JOIN SALES S ON ME.CUSTOMER_ID = S.CUSTOMER_ID
+		WHERE ORDER_DATE >= JOIN_DATE
+			AND EXTRACT(MONTH
+															FROM ORDER_DATE) = 1)
+SELECT CUSTOMER_ID,
+	SUM(CASE
+									WHEN (EO.ORDER_DATE - EO.JOIN_DATE) < 7 THEN PRICE * 20
+									WHEN EO.PRODUCT_ID = 1 THEN PRICE * 20
+									ELSE PRICE * 10
+					END) AS POINTS
+FROM ELIGIBLE_ORDERS EO
+LEFT JOIN MENU M ON EO.PRODUCT_ID = M.PRODUCT_ID
+GROUP BY CUSTOMER_ID
+						
