@@ -1,4 +1,5 @@
 -- Data Wrangling --
+-- Before starting this week's challenge we need to perform some data wrangling operations on the data to standardaize and clean the data to perform meaningful analysis
 
 -- custmer_orders --
 -- Remove null values from columns : exclusions, extras
