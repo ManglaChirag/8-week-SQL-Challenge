@@ -1,0 +1,106 @@
+-- #1. How many pizzas were ordered?
+
+SELECT COUNT(*) AS PIZZA_COUNT
+FROM CUSTOMER_ORDERS;
+
+-- #2. How many unique customer orders were made?
+
+select count(DISTINCT(order_id)) As Order_count
+from CUSTOMER_ORDERS;
+
+-- #3. How many successful orders were delivered by each runner?
+
+SELECT COUNT(*) AS SUCCESSFUL_ORDERS
+FROM RUNNER_ORDERS
+WHERE CANCELLATION IS NULL;
+
+-- #4. How many of each type of pizza was delivered?
+
+SELECT P.PIZZA_NAME,
+	COUNT(P.PIZZA_ID)
+FROM
+	(SELECT PIZZA_ID
+		FROM RUNNER_ORDERS R
+		LEFT JOIN CUSTOMER_ORDERS C ON R.ORDER_ID = C.ORDER_ID
+		WHERE R.CANCELLATION IS NULL ) AS ID
+JOIN PIZZA_NAMES P ON ID.PIZZA_ID = P.PIZZA_ID
+GROUP BY P.PIZZA_NAME;
+
+-- #5. How many Vegetarian and Meatlovers were ordered by each customer?
+
+SELECT CUSTOMER_ID,
+	SUM(CASE
+									WHEN PIZZA_ID = 1 THEN 1
+									ELSE 0
+					END) AS MEATLOVERS,
+	SUM(CASE
+									WHEN PIZZA_ID = 2 THEN 1
+									ELSE 0
+					END) AS VEGETARIAN
+FROM CUSTOMER_ORDERS
+GROUP BY CUSTOMER_ID
+ORDER BY CUSTOMER_ID;
+
+-- #6. What was the maximum number of pizzas delivered in a single order?
+
+SELECT MAX(OC) AS LARGEST_ORDER
+FROM
+	(SELECT C.ORDER_ID,
+			COUNT(C.ORDER_ID) AS OC
+		FROM CUSTOMER_ORDERS C
+		JOIN RUNNER_ORDERS R ON C.ORDER_ID = R.ORDER_ID
+		WHERE R.CANCELLATION IS NULL
+		GROUP BY C.ORDER_ID) AS ORDERS
+
+-- #7. For each customer, how many delivered pizzas had at least 1 change and how many had no changes?
+
+WITH CTE AS
+	(SELECT CUSTOMER_ID,
+			EXCLUSIONS,
+			EXTRAS
+		FROM RUNNER_ORDERS R
+		LEFT JOIN CUSTOMER_ORDERS C ON R.ORDER_ID = C.ORDER_ID
+		WHERE R.CANCELLATION IS NULL)
+SELECT CUSTOMER_ID,
+	SUM(CASE
+									WHEN EXCLUSIONS IS NOT NULL
+														OR EXTRAS IS NOT NULL THEN 1
+									ELSE 0
+					END) AS AT_LEAST_1_CHANGE,
+	SUM(CASE
+									WHEN EXCLUSIONS IS NULL
+														AND EXTRAS IS NULL THEN 1
+									ELSE 0
+					END) AS NO_CHANGE
+FROM CTE
+GROUP BY CUSTOMER_ID
+ORDER BY CUSTOMER_ID;
+
+-- #8. How many pizzas were delivered that had both exclusions and extras?
+
+
+
+SELECT SUM(CASE
+				WHEN EXCLUSIONS IS NOT NULL
+									AND EXTRAS IS NOT NULL THEN 1
+				ELSE 0
+				END) AS CUSTOMIZED_PIZZA_COUNT
+FROM RUNNER_ORDERS R
+LEFT JOIN CUSTOMER_ORDERS C ON R.ORDER_ID = C.ORDER_ID
+WHERE R.CANCELLATION IS NULL
+
+-- #9. What was the total volume of pizzas ordered for each hour of the day?
+
+
+SELECT EXTRACT(HOUR FROM ORDER_TIME) AS TIME,
+	COUNT(ORDER_ID)
+FROM CUSTOMER_ORDERS
+GROUP BY TIME
+ORDER BY TIME
+
+-- #10. What was the volume of orders for each day of the week?
+SELECT to_char(order_time, 'Day') AS D,
+	COUNT(ORDER_ID)
+FROM CUSTOMER_ORDERS
+GROUP BY D
+ORDER BY D
