@@ -13,7 +13,7 @@ set extras='' where extras= 'null' or extras is null
 -- Verify the clean table
 select *
 from customer_orders
-
+--------------------------------------------------------------------------------------
 -- runner_orders --
 -- Remove null values from:
 	-- pickup_time
