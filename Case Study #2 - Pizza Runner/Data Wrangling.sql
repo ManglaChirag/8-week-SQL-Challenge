@@ -5,10 +5,15 @@
 -- Remove null values from columns : exclusions, extras
 
 update customer_orders
-set exclusions='' where exclusions= 'null' or exclusions is null
+set exclusions=null where exclusions= 'null'
 
 update customer_orders
-set extras='' where extras= 'null' or extras is null
+set extras=null where extras= 'null'
+
+-- Update Year in order_time
+
+update customer_orders
+set order_time= order_time + interval '1 Year' where extract(year from order_time)=2020
 
 -- Verify the clean table
 select *
@@ -22,7 +27,7 @@ from customer_orders
 	--cancellation
 
 update runner_orders
-set cancellation='' where cancellation= 'null' or cancellation is null
+set cancellation=null where cancellation= ''
 
 update runner_orders
 set distance=null where distance='null'
@@ -59,6 +64,11 @@ using distance::double precision
 ALTER TABLE RUNNER_ORDERS
 ALTER COLUMN duration type int
 using duration::integer
+
+-- Update Year in pickup_time
+
+update runner_orders
+set pickup_time= pickup_time + interval '1 Year' where extract(year from pickup_time)=2020
 
 -- Verify the clean table
 select *
