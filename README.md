@@ -1,2 +1,3 @@
-# 8-week-SQL-Challenge
-Case study for #8weekSQLChallenge by Danny Ma at https://8weeksqlchallenge.com/
+# 8 Week SQL Challenge
+
+This repository contains the solution for the 8 case studies in **[#8WeekSQLChallenge](https://8weeksqlchallenge.com)**!
