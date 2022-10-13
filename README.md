@@ -14,4 +14,4 @@ I've used **[PostgreSQL](https://www.postgresql.org/)** and **[pgAdmin4](https:/
 - **ERD** : Entity Relationship Diagram is the visual representation of schema's structure and relationship between logically related tables.
 - **Schema** : It contains database objects like tables and data that is needed to perform analysis.
 - **Solutions** : It contains solutions for the questions in the case-study and it also elaborates on the steps to reach that solution.
-- **Learnings** : It mentions the concepts used in solving the case-study.
+- **Learnings** : It mentions the concepts grasped in solving the case-study.
