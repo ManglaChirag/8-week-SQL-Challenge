@@ -8,7 +8,7 @@
 - [Entity Relationship Diagram](#entity-relationship-diagram)
 - [Case-Study Learnings](#case-study-learnings)
 - [Solutions](#solutions)
-- [Schema[(#schema)
+- [Schema](#schema)
 
 
 ***
