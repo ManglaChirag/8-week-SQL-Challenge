@@ -7,6 +7,8 @@
 - [Introduction](#introduction)
 - [Entity Relationship Diagram](#entity-relationship-diagram)
 - [Case-Study Learnings](#case-study-learnings)
+- [Solutions](#solutions)
+- [Schema[(#schema)
 
 
 ***
@@ -21,4 +23,10 @@ Danny’s Diner is in need of your assistance to help the restaurant stay afloat
 
 
 ## Case-Study Learnings
+- Joins
+- CTE
+- WINDOW Functions
+- CASE Statements
+- Aggregate Functions
+- GROUP BY 
 
