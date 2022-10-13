@@ -7,8 +7,8 @@
 - [Introduction](#introduction)
 - [Entity Relationship Diagram](#entity-relationship-diagram)
 - [Case-Study Learnings](#case-study-learnings)
-- [Solutions](#solutions)
-- [Schema](#schema)
+- [Solutions](https://github.com/ManglaChirag/8-week-SQL-Challenge/blob/main/Case%20Study%20%231%20-%20Danny's%20Diner/Solutions.md)
+- [Schema](https://github.com/ManglaChirag/8-week-SQL-Challenge/blob/main/Case%20Study%20%231%20-%20Danny's%20Diner/Schema.sql)
 
 
 ***
